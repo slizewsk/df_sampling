@@ -18,7 +18,17 @@ license = { file = "licenses/LICENSE.rst" }
 authors = [
   { name = "A. Slizewski", email = "a.slizewski@mail.utoronto.ca" },
 ]
-dependencies = []
+
+dependencies = [
+  "astropy",
+  "pandas", 
+  "numpy", 
+  "seaborn",
+  "scipy",
+  "matplotlib",
+  "cmdstanpy",
+  "arviz",
+]
 dynamic = ["version"]
 
 [project.scripts]
