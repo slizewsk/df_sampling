@@ -66,6 +66,7 @@ testpaths = [
 doctest_plus = "enabled"
 text_file_format = "rst"
 addopts = "--doctest-rst"
+norecursedirs = ["df_sampling[\\/]_dev"]
 
 [tool.coverage.run]
 omit = [
