@@ -12,7 +12,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "df_sampling"
 description = "Python package for sampling phase-space observations from a given distribution function f(E,L)."
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 readme = { file = "README.rst", content-type = "text/x-rst" }
 license = { file = "licenses/LICENSE.rst" }
 authors = [
