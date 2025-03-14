@@ -1,0 +1,97 @@
+[build-system]
+requires = [
+  "setuptools>=62.1",
+  "setuptools_scm[toml]>=8.0.0",
+  "wheel",
+  "extension-helpers",
+  "numpy>=1.25",
+  "cython"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "df_sampling"
+description = "Python package for sampling phase-space observations from a given distribution function f(E,L)."
+requires-python = ">=3.12"
+readme = { file = "README.rst", content-type = "text/x-rst" }
+license = { file = "licenses/LICENSE.rst" }
+authors = [
+  { name = "A. Slizewski", email = "a.slizewski@mail.utoronto.ca" },
+]
+dependencies = []
+dynamic = ["version"]
+
+[project.scripts]
+open_astronomy_package_template_example = "df_sampling.example_mod:main"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-doctestplus",
+    "pytest-cov"
+]
+docs = [
+    "sphinx",
+    "sphinx-automodapi",
+]
+[project.urls]
+repository = "https://github.com/slizewsk/df_sampling.git"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["df_sampling*"]
+exclude = ["df_sampling._dev*"]
+
+[tool.setuptools_scm]
+version_file = "df_sampling/_version.py"
+
+[tool.pytest.ini_options]
+testpaths = [
+  "df_sampling",
+  "docs",
+]
+doctest_plus = "enabled"
+text_file_format = "rst"
+addopts = "--doctest-rst"
+
+[tool.coverage.run]
+omit = [
+ "df_sampling/__init*",
+ "df_sampling/conftest.py",
+ "df_sampling/*setup_package*",
+ "df_sampling/tests/*",
+ "df_sampling/*/tests/*",
+ "df_sampling/extern/*",
+ "df_sampling/version*",
+ "*/df_sampling/__init*",
+ "*/df_sampling/conftest.py",
+ "*/df_sampling/*setup_package*",
+ "*/df_sampling/tests/*",
+ "*/df_sampling/*/tests/*",
+ "*/df_sampling/extern/*",
+ "*/df_sampling/version*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+  # Don't complain about packages we have installed
+  "except ImportError",
+  # Don't complain if tests don't hit assertions
+  "raise AssertionError",
+  "raise NotImplementedError",
+  # Don't complain about script hooks
+  "def main(.*):",
+  # Ignore branches that don't pertain to this version of Python
+  "pragma: py{ignore_python_version}",
+  # Don't complain about IPython completion helper
+  "def _ipython_key_completions_",
+  # typing.TYPE_CHECKING is False at runtime
+  "if TYPE_CHECKING:",
+  # Ignore typing overloads
+  "@overload",
+]

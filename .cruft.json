@@ -1,0 +1,32 @@
+{
+  "template": "https://github.com/OpenAstronomy/packaging-guide",
+  "commit": "cb394c68be7c573ddcfaeeea54757c72555eedd0",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "package_name": "df_sampling",
+      "module_name": "df_sampling",
+      "short_description": "Python package for sampling phase-space observations from a given distribution function f(E,L).",
+      "author_name": "A. Slizewski",
+      "author_email": "a.slizewski@mail.utoronto.ca",
+      "project_url": "https://github.com/slizewsk/df_sampling.git",
+      "license": "BSD 2-Clause",
+      "minimum_python_version": "3.12",
+      "use_compiled_extensions": "y",
+      "enable_dynamic_dev_versions": "y",
+      "include_example_code": "y",
+      "include_cruft_update_github_workflow": "y",
+      "_sphinx_theme": "alabaster",
+      "_parent_project": "",
+      "_install_requires": "",
+      "_copy_without_render": [
+        "docs/_templates",
+        "docs/_static",
+        ".github/workflows/sub_package_update.yml"
+      ],
+      "_template": "https://github.com/OpenAstronomy/packaging-guide",
+      "_commit": "cb394c68be7c573ddcfaeeea54757c72555eedd0"
+    }
+  },
+  "directory": null
+}
