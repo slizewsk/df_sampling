@@ -1,15 +1,14 @@
-df_sampling Documentation
--------------------------
+.. df_sampling documentation master file
 
-This is the documentation for df_sampling.
+Welcome to df_sampling's documentation!
+
+Contents:
+=========
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   modules
+   installation
+   usage
