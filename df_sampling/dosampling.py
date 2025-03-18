@@ -1,4 +1,4 @@
-from .core_imports import np,pd,plt,sns,time,dataclass,interp1d,uniform,pareto, gammaf,hyp2f1,betainc,os
+from .core_imports import np,pd,plt,sns,time,dataclass,interp1d,uniform,pareto, gammaf,hyp2f1,os
 # from .draw_rs import draw_r
 # from .peak_like import get_thresh
 # from .acc_rej import sample_ar
@@ -13,14 +13,6 @@ def objective_function(y, r, params, verbose=False):
     ldf = logdf(np.array([vr, vt, r]))  # Log of DF
     if verbose: print(lvt,ldf)
     return -(lvt + ldf)  
-
-# need these to be compatible w datafitter class 
-# - stan_model_path
-# - prior_dict
-# - params_list
-# - param_labels
-# - bounds
-# - output_dir
 
 @dataclass
 class Params:
@@ -192,8 +184,8 @@ class ParamsHernquist:
         self.pcrit = 3 * (self.H0**2) / (8 * np.pi * self.G)
         
         self.prior_dict = {
-            'p_Mtot': {'mean': self.Mtot, 'sigma': 120, 'min': 1e-4},
-            'p_arad': {'mean': self.a, 'sigma': 3, 'min': 3, 'max': np.inf},
+            'p_Mtot': {'mean': self.Mtot, 'sigma': 100, 'min': 1e-4},
+            'p_arad': {'mean': self.a, 'sigma': 4, 'min': 3, 'max': np.inf},
             'p_beta': {'mean': self.beta, 'sigma': 0.3, 'min': -np.inf, 'max': 1.0},
         }
 
@@ -223,17 +215,19 @@ class ParamsHernquist:
         else:
             raise ValueError("Invalid sampling kind. Choose 'numeric' or 'analytic'.")
     
+    def psi(self,r):
+        return np.abs(self.phi(r))
     def vcirc(self, r):
         """ Circular velocity at radius r. """
-        return np.sqrt(r * np.abs(self.phi(r)))   
+        return np.sqrt(r * self.psi(r))  
 
     def vbound(self, r):
         """ Escape velocity at radius r. """
-        return np.sqrt(2 * np.abs(self.phi(r)))  
+        return np.sqrt(2 * self.psi(r))
     
     def relE(self,y):
         vr, vt, r = y
-        e = np.abs(self.phi(r)) - (vr**2 + vt**2)/2
+        e = self.psi(r) - (vr**2 + vt**2)/2
         if e <= 0:return -np.inf    
         return e
     
@@ -260,7 +254,7 @@ class ParamsHernquist:
         beta = self.beta
         if E <= 0:
             return -np.inf  
-        L = r * vt
+        L = r/self.a * vt/np.sqrt(self.Mtot/self.a)
         t1 = 2**beta / (2*np.pi)**(5/2) * E**(5/2-beta)
         t2 = gammaf(5-2*beta)/(gammaf(1-beta)*(gammaf(7/2-beta)))
         t3 = hyp2f1(5 - 2 * beta, 1 - 2 * beta, 7/2 - beta, E)
@@ -273,21 +267,21 @@ class ParamsHernquist:
         """ Logarithm of the distribution function self.df """
         return np.log(self.df(y))
     
-    def sigma_r2(self,r):
-        """ Radial velocity dispersion (analytic)"""
-        beta = self.beta
-        a = self.a
-        # if beta == 1/2:
-        #     return 1/4*1/(1+r)
-        if beta == 0.0:
-            t0 = self.Mtot/(12*a)
-            t1 = 12*r*(r+a)**3/a**4 * np.log((r+a)/r)
-            t2 = -r/(r+a)*(25 + 52*r/a+42*(r/a)**2+12*(r/a)**3)
-            return t0*(t1 + t2)
-        else:
-            t1 = self.Mtot*(r/a)**(1-2*beta) * (1+(r/a))**3
-            t2 = betainc(5-2*beta,2*beta+1e-10,1/(1+(r/a)))
-            return t1*t2
+    # def sigma_r2(self,r):
+    #     """ Radial velocity dispersion"""
+    #     beta = self.beta
+    #     a = self.a
+    #     # if beta == 1/2:
+    #     #     return 1/4*1/(1+r)
+    #     if beta == 0.0:
+    #         t0 = self.Mtot/(12*a)
+    #         t1 = 12*r*(r+a)**3/a**4 * np.log((r+a)/r)
+    #         t2 = -r/(r+a)*(25 + 52*r/a+42*(r/a)**2+12*(r/a)**3)
+    #         return t0*(t1 + t2)
+    #     else:
+    #         t1 = self.Mtot*(r/a)**(1-2*beta) * (1+(r/a))**3
+    #         t2 = betainc(5-2*beta,2*beta+1e-10,1/(1+(r/a)))
+    #         return t1*t2
 
     def rho(self, r):
         """Density function."""
