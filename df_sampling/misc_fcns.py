@@ -1,5 +1,5 @@
 
-from ..core_imports import np, plt, sns, linregress
+from df_sampling.core_imports import np, plt, sns, linregress
 
 def plot_success(all_results_df,true_alpha,param_labels,num_simulations,ntracers,save=True,show=False,output_dir=''):
     colors = {"p_phi0": "deepskyblue", "p_gamma": "orangered", "p_beta": "orange", "M200": "darkviolet"}

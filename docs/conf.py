@@ -5,8 +5,11 @@
 # http://www.sphinx-doc.org/en/master/config
 
 import datetime
+import sys
+import os
 
 # -- Project information -----------------------------------------------------
+# sys.path.insert(0, os.path.abspath('../df_sampling'))
 
 # The full version, including alpha/beta/rc tags
 from df_sampling import __version__

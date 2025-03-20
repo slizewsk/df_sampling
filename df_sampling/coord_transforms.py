@@ -1,4 +1,4 @@
-from ..core_imports import np
+from df_sampling.core_imports import np
 
 R = np.array([  [-0.05487395617553902, -0.8734371822248346,-0.48383503143198114],
                 [0.4941107627040048, -0.4448286178025452,0.7469819642829028],

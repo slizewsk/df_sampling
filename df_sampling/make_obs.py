@@ -1,6 +1,6 @@
-from ..core_imports import np,pd,uniform
-from .misc_fcns import quad_form_diag,is_positive_definite
-from .coord_transforms import sph2cart_pos, gc2eq_pos, gc2eq_vel
+from df_sampling.core_imports import np,pd,uniform
+from df_sampling.misc_fcns import quad_form_diag,is_positive_definite
+from df_sampling.coord_transforms import sph2cart_pos, gc2eq_pos, gc2eq_vel
 
 def mockobs(samps_df,params,angles=None):
     tab = pd.DataFrame()

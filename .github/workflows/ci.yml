@@ -27,4 +27,3 @@ jobs:
 
       - name: Run tests
         run: pytest 
-        # run: pytest df_sampling/tests/test_sampling.py

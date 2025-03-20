@@ -9,7 +9,9 @@ build:
     python: "3.13"
 
 sphinx:
+  builder: html
   configuration: docs/conf.py 
+  fail_on_warning: false
 
 python:
   install:
@@ -17,3 +19,4 @@ python:
       path: .
       extra_requirements:
         - docs
+        - all

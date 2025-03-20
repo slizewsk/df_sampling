@@ -51,8 +51,7 @@ zip-safe = false
 include-package-data = true
 
 [tool.setuptools.packages.find]
-where = ["df_sampling"]
-include = ["df_sampling*", "df_sampling.utils*"]
+include = ["df_sampling*"]
 exclude = ["df_sampling._dev*"]
 
 [tool.setuptools_scm]

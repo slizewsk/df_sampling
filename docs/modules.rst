@@ -16,7 +16,12 @@ Modules
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: df_sampling.utils
+.. automodule:: df_sampling.coord_transforms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: df_sampling.misc_fcns
     :members:
     :undoc-members:
     :show-inheritance:
