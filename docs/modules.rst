@@ -1,28 +1,22 @@
 Modules
 =======
 
-.. automodule:: df_sampling.coord_transforms
+.. automodule:: df_sampling.powerlaw_model
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: df_sampling.core_imports
+.. automodule:: df_sampling.hernquist_model
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: df_sampling.dosampling
+.. automodule:: df_sampling.df_sampler
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: df_sampling.make_obs
+.. automodule:: df_sampling.utils
     :members:
     :undoc-members:
     :show-inheritance:
-
-.. automodule:: df_sampling.misc_fcns
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    
