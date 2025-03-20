@@ -26,7 +26,6 @@ dependencies = [
   "seaborn",
   "scipy",
   "matplotlib",
-  "cmdstanpy",
   "arviz",
 ]
 dynamic = ["version"]
@@ -52,7 +51,8 @@ zip-safe = false
 include-package-data = true
 
 [tool.setuptools.packages.find]
-include = ["df_sampling*"]
+where = ["df_sampling"]
+include = ["df_sampling*", "df_sampling.utils*"]
 exclude = ["df_sampling._dev*"]
 
 [tool.setuptools_scm]

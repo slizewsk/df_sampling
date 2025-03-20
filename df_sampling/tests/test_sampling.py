@@ -1,11 +1,12 @@
 """Tests for `sampling` package."""
 
 from df_sampling.core_imports import *
-from df_sampling import *
+from df_sampling.powerlaw_model import Params
+from df_sampling.hernquist_model import ParamsHernquist
 
 class TestParams:   
     def setup_method(self):
-        self.params = Params(phi0=1.0, gamma=0.5, alpha=3.5, beta=0.5, rmin=0.1, nsim=1000)
+        self.params = Params(phi0=1.0, gamma=0.5, alpha=3.5, beta=0.5, rmin=0.1, nsim=1000, saving=False)
 
     def test_init(self):
         assert self.params.phi0 == 1.0
@@ -31,7 +32,7 @@ class TestParams:
 
 class TestParamsHernquist:
     def setup_method(self):
-        self.params = ParamsHernquist(Mtot=1.0, a=10.0, beta = 0.0, rmin=0.1, nsim=1000)
+        self.params = ParamsHernquist(Mtot=1.0, a=10.0, beta = 0.0, rmin=0.1, nsim=1000,saving=False)
     
     def test_init(self):
         assert self.params.Mtot == 1.0

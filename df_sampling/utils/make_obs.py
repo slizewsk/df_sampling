@@ -1,9 +1,6 @@
-from .core_imports import np,pd,uniform
-from .misc_fcns import calc_EL,quad_form_diag,is_positive_definite
+from ..core_imports import np,pd,uniform
+from .misc_fcns import quad_form_diag,is_positive_definite
 from .coord_transforms import sph2cart_pos, gc2eq_pos, gc2eq_vel
-# from .draw_rs import draw_r
-# from .acc_rej import sample_ar
-# from .peak_like import get_thresh
 
 def mockobs(samps_df,params,angles=None):
     tab = pd.DataFrame()
@@ -57,26 +54,10 @@ def mockobs(samps_df,params,angles=None):
     return tab
 
 
-# def sample_and_create_df(nsim, alpha, rmin, rmax, pars, save=False, fname='test-fname'):
-    # Sample radial positions
-    drawn_rs = draw_r(alpha=alpha, rmin=rmin, rmax=rmax, n=nsim)
-    # Sample the corresponding observations for each radial position
-    observations = np.array([sample_ar(r, get_thresh(r, pars, verb=False), pars, verb=False) for r in drawn_rs])
-    # Create DataFrame from the sampled observations
-    df = pd.DataFrame({'r': observations[:, 0], 'vr': observations[:, 1], 'vt': observations[:, 2]})
-    df['v'] = np.sqrt(df['vr'] ** 2 + df['vt'] ** 2)
-    # Compute rel energy (E) and angular momentum (L) for each sample
-    df[['E', 'L']] = df.apply(lambda row: calc_EL(np.array([row['vr'], row['vt'], row['r']]), pars), axis=1, result_type='expand')
-    # start_time = time.time()
-    # Optionally save the DataFrame to CSV
-    if save:
-        df.to_csv('Data/rawdraws-' + fname)
-    return df
-
-
-
+# the following fcns are used in finalizing mock observations (gen uncertainties etc)
 def construct_cov_matrices(obs):
-    """Construct covariance matrices for positional and proper motion uncertainties."""
+    """Construct covariance matrices for positional and proper motion uncertainties.
+    Input Obs must be a dataframe containing error and correlations between positions ra, dec and proper motions pmra, pmdec"""
 
     # Define 2x2 covariance matrix construction
     def create_cov_matrix(corr, err1, err2):
@@ -111,7 +92,6 @@ def construct_cov_matrices(obs):
 
     return pm_cov_mats, pos_cov_mats, pos_pm_cov_mats, bad_idx
 
-
 def generate_random_values(obs, results, cols):
     """Generate random values for observational uncertainties using Gaussian noise."""
     for col in cols:
@@ -124,7 +104,6 @@ def generate_random_values(obs, results, cols):
 
         obs.loc[~valid_bins, col] = np.nan  # Handle missing bins
     return obs
-
 
 def bin_and_aggregate_data(moredat, bin_edges):
     """Bin data radially and compute means/variances of errors."""
@@ -160,9 +139,3 @@ def finalize_observations(obs, bad_idx, save=True, fname='test-fname'):
     
     return selected
 
-
-# i believe these are old for when i was doing things within astropy, 
-# would be called from core imports if needed
-# import astropy.coordinates as Coords
-# from astropy.coordinates import SkyCoord
-# import astropy.units as u
